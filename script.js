@@ -53,8 +53,8 @@ window.addEventListener("load", function () {
       this.x = 20;
       this.y = 100;
       this.frameX = 0;
-      this.frameY = 0;
-      this.speedY = 0;
+      this.frameY = 1;
+      this.maxFrame = 37;
       this.maxSpeed = 3;
       this.projectiles = [];
       this.image = document.getElementById("player");
@@ -72,10 +72,16 @@ window.addEventListener("load", function () {
       this.projectiles = this.projectiles.filter(
         (projectile) => !projectile.markedForDeletion
       );
+      // sprite animation
+      if (this.frameX < this.maxFrame) {
+        this.frameX++;
+      } else {
+        this.frameX = 0;
+      }
     }
     draw(context) {
       context.fillStyle = "black";
-      context.fillRect(this.x, this.y, this.width, this.height);
+      context.strokeRect(this.x, this.y, this.width, this.height);
       context.drawImage(
         this.image,
         this.frameX * this.width,
@@ -239,7 +245,7 @@ window.addEventListener("load", function () {
       this.score = 0;
       this.winningScore = 10;
       this.gameTime = 0;
-      this.timeLimit = 7000;
+      this.timeLimit = 10000;
       this.speed = 1;
     }
     update(deltaTime) {
